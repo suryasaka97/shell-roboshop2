@@ -16,7 +16,7 @@ do
   --image-id $AMI_ID \
   --instance-type $Type \
   --security-group-ids $SG_ID \
-  --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=$instance}]' \
+  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" \
   --query 'Instances[0].InstanceId' \
   --output text)
    
@@ -32,6 +32,7 @@ do
     fi
 
     echo "$instance : $ip" 
+
 done
  
 
