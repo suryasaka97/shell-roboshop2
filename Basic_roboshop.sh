@@ -13,9 +13,9 @@ aws ec2 run-instances \
   --instance-type $Instance_type \
   --security-group-ids $SG_ID \
   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=frontend}]' \
-  --output json   ###Tags are used to provide names### 
+  --output json   ###Tags are used to provide names### #And here Output is in JSON#
 
-##Command used to see the particular Instance##
+##Command used to see the particular Instance Details##
 aws ec2 describe-instances \
   --instance-ids i-0cd1d9c1133444f49
 
@@ -42,3 +42,25 @@ INSTANCE_IP=$(aws ec2 describe-instances \
   --output text)
 
 echo "Public IP Address: $INSTANCE_IP"
+
+## Command to create or update DNS Records ##
+
+aws route53 change-resource-record-sets \
+  --hosted-zone-id $ZONE_ID \
+  --change-batch '
+  {
+    "Comment": "Creating and updating record set for cognito endpoint"
+    ,"Changes": [{
+      "Action"              : "UPSERT"
+      ,"ResourceRecordSet"  : {
+        "Name"              : "'$instance'.'$DOMAIN_NAME'"
+        ,"Type"             : "A"
+        ,"TTL"              : 10
+        ,"ResourceRecords"  : [{
+            "Value"         : "'$ip'"
+        }]
+      }
+    }]
+  }
+
+
