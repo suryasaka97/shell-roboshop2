@@ -61,6 +61,6 @@ aws route53 change-resource-record-sets \
         }]
       }
     }]
-  }
+  }'
 
 
