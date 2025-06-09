@@ -9,10 +9,12 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-Log_Folder="/var/log/mongodb.sh"
+Log_Folder="/var/log/roboshop-logs"
 file_name=$(echo $0 | cut -d "." -f1)
 file_path="$Log_Folder/$file_name.sh"
 
+
+echo "you are running this script at $(date)" | tee -a $file_path
 
 mkdir -p $file_path 
 
