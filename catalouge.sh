@@ -14,6 +14,7 @@ file_name=$(echo $0 | cut -d "." -f1)
 file_path="$Log_Folder/$file_name.log"
 script_path=$(PWD)
 
+
 mkdir -p $Log_Folder
 
 echo "you are running this script at $(date)" | tee -a $file_path
