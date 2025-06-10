@@ -12,7 +12,7 @@ N="\e[0m"
 Log_Folder="/var/log/roboshop-logs"
 file_name=$(echo $0 | cut -d "." -f1)
 file_path="$Log_Folder/$file_name.log"
-script_path=$(PWD)
+script_path=$PWD
 
 
 mkdir -p $Log_Folder
