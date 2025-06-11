@@ -102,5 +102,6 @@ mongosh --host mongodb.anantya.space </app/db/master-data.js  &>>$file_path
 validate $? "Loading data into mongodb"
 else
 echo "data is already is loading...$Y"skipping"$N"
+fi
 
 
