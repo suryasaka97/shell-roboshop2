@@ -56,7 +56,7 @@ then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop  &>>$file_path
     validate $? "Creating Roboshop user"
 else
-    echo "Roboshop user already exists....$Y"skipping this step"$N"
+    echo -e "Roboshop user already exists....$Y skipping this step$N"
 fi
 
 
@@ -98,10 +98,11 @@ STATUS=$(mongosh --host mongodb.daws84s.site --eval 'db.getMongo().getDBNames().
 
 if [ $STATUS -lt 0 ]
 then
-mongosh --host mongodb.anantya.space </app/db/master-data.js  &>>$file_path
-validate $? "Loading data into mongodb"
+    mongosh --host mongodb.anantya.space </app/db/master-data.js  &>>$file_path
+    validate $? "Loading data into mongodb"
 else
-echo "data is already is loading...$Y"skipping"$N"
+    echo -e "data is already loading...$Y"skipping"$N"
 fi
+
 
 
