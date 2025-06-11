@@ -35,7 +35,7 @@ validate(){
         echo -e "$R $2 Failed...$Y please check $N" | tee -a $file_path
         exit 1
     else
-        echo -e "$G $2 Success...$Y Proceeding $N" | tee -a $file_path
+        echo -e "$G $2 Success...$Y"success"$N" | tee -a $file_path
 fi
 }
 
@@ -49,23 +49,32 @@ validate $? "Enable nodejs:20 Module"
 dnf install nodejs -y  &>>$file_path
 validate $? "Installing Nodejs"
 
-useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop  &>>$file_path
-validate $? "Creating Roboshop user"
+id roboshop
 
-mkdir /app 
+if [ $? -ne 0 ]
+then
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop  &>>$file_path
+    validate $? "Creating Roboshop user"
+else
+    echo "Roboshop user already exists....$Y"skipping this step"$N"
+fi
+
+
+mkdir -p /app 
 validate $? "/app folder is created"
 
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$file_path
+curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$file_path  ##this step replaces old catalogue file#
 validate $? "Downloading catalogue.zip to tmp folder"
+
+
+rm -rf /app/*
 
 cd /app 
 validate $? "moving to /App"
 
 unzip /tmp/catalogue.zip  &>>$file_path
 validate $? "Unzipping catalogue zip file in /app folder"
-
-
-cd /app 
+ 
 npm install &>>$file_path
 validate $? "npm installation"
 
@@ -85,7 +94,13 @@ validate $? "copying mongo repo"
 dnf install mongodb-mongosh -y  &>>$file_path
 validate $? "installing mongodb client"
 
+STATUS=$(mongosh --host mongodb.daws84s.site --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
+
+if [ $STATUS -lt 0 ]
+then
 mongosh --host mongodb.anantya.space </app/db/master-data.js  &>>$file_path
 validate $? "Loading data into mongodb"
+else
+echo "data is already is loading...$Y"skipping"$N"
 
 

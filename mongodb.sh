@@ -33,7 +33,7 @@ validate(){
         echo -e "$R $2 Failed...$Y please check $N" | tee -a $file_path
         exit 1
     else
-        echo -e "$G $2 Success...$Y Proceeding $N" | tee -a $file_path
+        echo -e "$G $2 Success...$Y"success"$N" | tee -a $file_path
 fi
 }
 
