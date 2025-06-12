@@ -57,17 +57,17 @@ else
     echo -e "$G roboshop user is already exist...$Y"skipping this step"$N" | tee -a $file_path
 fi
 
-curl -L -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip
+curl -L -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip | tee -a $file_path
 validate $? "Downloading zip file"
 
 mkdir -p /app
 
 cd /app
 
-rm -rf /app/*
+rm -rf /app/* | tee -a $file_path
 validate $? "removing all files from /app"
 
-unzip /tmp/cart.zip
+unzip /tmp/cart.zip | tee -a $file_path
 validate $? "unzip all files in /app"
 
 npm install &>> $file_path
