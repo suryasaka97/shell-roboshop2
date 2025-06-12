@@ -2,6 +2,7 @@
 
 user=$(id -u)
 
+start_time=$(date +%s)
 ##colors##
 
 R="\e[31m"
@@ -91,4 +92,7 @@ systemctl start user $>>$file_path
 
 validate $? "starting user"
 
+End_time=$(date +%s)
+TOTAL_TIME=$(($End_time-$start_time))
 
+echo "Time taken to this script $0 : $Y $ToTAL_TIME $N seconds"
