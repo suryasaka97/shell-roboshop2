@@ -10,7 +10,8 @@ Type="t2.micro"
 Instance=("catalogue" "users" "frontend" "mysql" "mongodb" "rabitnq" "redis" "dispatch" "payment" "shipping" "cart")
 
 
-for instance in ${Instance[@]}
+#for instance in ${Instance[@]}
+for instance in $@
 do
     Instance_ID=$(aws ec2 run-instances \
   --image-id $AMI_ID \
