@@ -2,8 +2,10 @@
 
 user=$(id -u)
 
-##colors##
+
 start_time=$(date +%s)
+
+##colors##
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -57,3 +59,10 @@ validate $? "Enable redis" | tee -a $file_path
 
 systemctl start redis &>>$file_path
 validate $? "Disable redis" | tee -a $file_path
+
+End_time=$(date +%s)
+TOTAL_TIME=$((End_time-start_time))
+
+echo "Total time taken to run this script : $TOTAL_TIME seconds" | tee -a $file_path
+
+
