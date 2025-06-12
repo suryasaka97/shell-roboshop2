@@ -54,41 +54,41 @@ id roboshop
 
 if [ $? -ne 0 ]
 then
-    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop $>>$file_path
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$file_path
     validate $? "Roboshop user created"
 else
     echo -e "roboshop user is already exist...$Y"skipping this step"$N" | tee -a $file_path
 fi    
 
-curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip $>>$file_path
+curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip &>>$file_path
 
 validate $? "Downloading Zip file" 
 
-mkdir -p /app  $>>$file_path
+mkdir -p /app  &>>$file_path
 
 
-rm -rf /app/* $>>$file_path
+rm -rf /app/* &>>$file_path
 validate $? "Removing unnecessary files"
 
 cd /app 
 
-unzip /tmp/user.zip  $>>$file_path
+unzip /tmp/user.zip  &>>$file_path
 
 validate $? "unzipping files"
 
-npm install  $>>$file_path
+npm install  &>>$file_path
 
 validate $? "Inatalling NPM"
 
-cp $script_path/user.service /etc/systemd/system/user.service $>>$file_path
+cp $script_path/user.service /etc/systemd/system/user.service &>>$file_path
 validate $? "copying service file"
 
-systemctl daemon-reload $>>$file_path
+systemctl daemon-reload &>>$file_path
 validate $? "Reloading the service"
 
-systemctl enable user $>>$file_path
+systemctl enable user &>>$file_path
 
-systemctl start user $>>$file_path
+systemctl start user &>>$file_path
 
 validate $? "starting user"
 
