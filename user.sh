@@ -95,4 +95,4 @@ validate $? "starting user"
 End_time=$(date +%s)
 TOTAL_TIME=$(($End_time-$start_time))
 
-echo -e "$G Time taken to this script$N $0 : $Y $TOTAL_TIME $N seconds"
+echo -e "$G Time taken to this script$N$R$0:$Y$TOTAL_TIME$N"seconds""
