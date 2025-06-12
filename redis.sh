@@ -47,5 +47,13 @@ dnf install redis -y
 validate $? "Installing redis"
 
 
+sed -i -e 's/127.0.0.1/0.0.0.0/g' -e '/protected-mode/ c protected-mode no' /etc/redis/redis.conf
+validate $? "Using sed changes ip and protected mode"
 
-#sed -i -e 's/127.0.0.1/0.0.0.0/g' -e '/protected-mode/ c 
+
+
+systemctl enable redis 
+validate $? "Enable redis"
+
+systemctl start redis 
+validate $? "Disable redis"
