@@ -44,7 +44,7 @@ dnf module disable nodejs -y &>> $file_path
 
 dnf module enable nodejs:20 -y &>> $file_path
 
-dnf install nodejs  &>> $file_path
+dnf install nodejs -y &>> $file_path
  
 id roboshop &>> $file_path
 
