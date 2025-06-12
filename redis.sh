@@ -23,7 +23,7 @@ then
     echo -e "$R Not a root user....$Y please run the script with root user'$N'"  | tee -a $file_path
     exit 1
 else
-    echo -e "'$G'Running with Root...'$Y'Proceeding...'$N'" | tee -a $file_path
+    echo -e "$G'Running with Root...'$Y'Proceeding...'$N" | tee -a $file_path
 fi
 
 
