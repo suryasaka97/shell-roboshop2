@@ -41,10 +41,11 @@ fi
 }
 
 dnf module disable nodejs -y &>> $file_path
-
+validate $? "Disable default nodejs"
 dnf module enable nodejs:20 -y &>> $file_path
-
+validate $? "enable nodejs20"
 dnf install nodejs -y &>> $file_path
+validate $? "Installation of nodejs"
  
 id roboshop &>> $file_path
 
