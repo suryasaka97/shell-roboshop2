@@ -51,13 +51,13 @@ id roboshop &>> $file_path
 
 if [ $? -ne 0 ]
 then
-    useradd --system --home /app --shell /sbin/nologin --comment "to run cart service" roboshop &>>$file_path
+    useradd --system --home /app --shell /sbin/nologin --comment "to run cart service" roboshop &>>ś$file_path
     validate $? "useradd roboshop"
 else
     echo -e "$G roboshop user is already exist...$Y"skipping this step"$N" | tee -a $file_path
 fi
 
-curl -L -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip $>> $file_path
+curl -L -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip &>> $file_path
 validate $? "Downloading zip file"
 
 mkdir -p /app
