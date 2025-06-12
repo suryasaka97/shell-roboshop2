@@ -56,7 +56,7 @@ else
     echo -e "$G roboshop user is already exist...$Y"skipping this step"$N" | tee -a $file_path
 fi
 
-curl -L -o /tmp/cart.zip /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip
+curl -L -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip
 validate $? "Downloading zip file"
 
 mkdir -p /app
