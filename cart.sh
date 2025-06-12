@@ -51,7 +51,7 @@ id roboshop &>> $file_path
 
 if [ $? -ne 0 ]
 then
-    useradd --system --home /app --shell /sbin/nologin --comment "to run cart service" roboshop
+    useradd --system --home /app --shell /sbin/nologin --comment "to run cart service" roboshop &>>$file_path
     validate $? "useradd roboshop"
 else
     echo -e "$G roboshop user is already exist...$Y"skipping this step"$N" | tee -a $file_path
@@ -64,7 +64,7 @@ mkdir -p /app
 
 cd /app
 
-rm -rf /app/* | tee -a $file_path
+rm -rf /app/* &>> $file_path
 validate $? "removing all files from /app"
 
 unzip /tmp/cart.zip | tee -a $file_path
