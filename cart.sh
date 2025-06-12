@@ -40,12 +40,12 @@ validate(){
 fi
 }
 
-dnf module disable nodejs -y
+dnf module disable nodejs -y &>> $file_path
 
-dnf module enable nodejs:20 -y
+dnf module enable nodejs:20 -y &>> $file_path
 
-dnf install nodejs
-
+dnf install nodejs  &>> $file_path
+ 
 id roboshop &>> $file_path
 
 if [ $? -ne 0 ]
