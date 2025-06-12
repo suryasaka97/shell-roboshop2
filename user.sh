@@ -50,14 +50,14 @@ validate $? "Enable nodejs:20"
 dnf install nodejs -y  &>>$file_path
 validate $? "Installing nodejs"
 
-id roboshop
+id roboshop &>>$file_path
 
 if [ $? -ne 0 ]
 then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$file_path
     validate $? "Roboshop user created"
 else
-    echo -e "roboshop user is already exist...$Y"skipping this step"$N" | tee -a $file_path
+    echo -e "$G roboshop user is already exist...$Y"skipping this step"$N" | tee -a $file_path
 fi    
 
 curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip &>>$file_path
@@ -95,4 +95,4 @@ validate $? "starting user"
 End_time=$(date +%s)
 TOTAL_TIME=$(($End_time-$start_time))
 
-echo -e "Time taken to this script $0 : $Y $ToTAL_TIME $N seconds"
+echo -e "$G Time taken to this script$N $0 : $Y $TOTAL_TIME $N seconds"
