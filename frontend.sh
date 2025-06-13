@@ -44,12 +44,12 @@ dnf module enable nginx:1.24 -y
 dnf install nginx -y
 validate $? "Installing Nginx"
 
+rm -rf /usr/share/nginx/html/* 
+validate $? "removing Default content"
+
 systemctl enable nginx 
 systemctl start nginx 
 validate $? "Starting Nginx"
-
-rm -rf /usr/share/nginx/html/* 
-validate $? "removing Default content"
 
 curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip
 validate $? "Downloading frontendcontent"
