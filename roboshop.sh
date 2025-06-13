@@ -26,10 +26,12 @@ do
          ip=$(aws ec2 describe-instances --instance-ids $Instance_ID \
         --query "Reservations[0].Instances[0].PrivateIpAddress" \
         --output text)
+        record="$instance.$DOMAIN_NAME"
     else
         ip=$(aws ec2 describe-instances --instance-ids $Instance_ID \
         --query "Reservations[0].Instances[0].PublicIpAddress" \
         --output text)
+        record="$DOMAIN_NAME"
     fi
 
     echo "$instance : $ip" 
