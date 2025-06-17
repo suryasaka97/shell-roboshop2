@@ -58,7 +58,7 @@ END_TIME=$(DATE +%S)
 
 TOTAL_TIME=$(($END_TIME-$START_TIME)) 
 
-echo "Time taken to run this script is : $TOTAL_TIME seconds" | tee -a $file_path
+echo -e "Time taken to run this script is : $G $TOTAL_TIME $N seconds" | tee -a $file_path
 
 
 

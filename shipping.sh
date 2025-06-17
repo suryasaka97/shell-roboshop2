@@ -52,16 +52,16 @@ then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
     validate $? "adding roboshop user"
 else  
-    echo "roshosho user is already $G"exists""
+    echo "roboshop user is already $G"exists""
 fi
 
 mkdir /app 
 validate $? "/app folder installed"
 
-curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip
+curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip &>> $file_path
 validate $? "shipping folder downloading"
 
-unzip /tmp/shipping.zip
+unzip /tmp/shipping.zip &>> $file_path
 validate $? "unzipping shipping folder"
 
 mvn clean package 
@@ -74,31 +74,45 @@ validate "moving to shipping.jar"
 cp $script_path/shipping.sh /etc/systemd/system/shipping.service
 validate $? "copying shipping service"
 
-systemctl daemon-reload
+systemctl daemon-reload &>> $file_path
 validate $? "daemon-reload"
 
-systemctl enable shipping
+systemctl enable shipping &>> $file_path
 validate $? "enable shipping"
 
-systemctl start shipping
+systemctl start shipping &>> $file_path
 validate $? "start shipping"
 
-dnf install mysql -y 
+dnf install mysql -y &>> $file_path
 validate $? "mysql installation"
 
 read -ps "please provide mysql root password" MYSQL_PASSWORD
 
 
-mysql -h mysql.anantya.space -uroot -p$MYSQL_PASSWORD < /app/db/schema.sql
+mysql -h mysql.daws84s.site -u root -p$MYSQL_ROOT_PASSWORD -e 'use cities' &>>$LOG_FILE
 
-mysql -h mysql.anantya.space -uroot -p$MYSQL_PASSWORD < /app/db/app-user.sql 
+if [ $? -ne 0]
+then
+    mysql -h mysql.anantya.space -uroot -p$MYSQL_PASSWORD < /app/db/schema.sql &>> $file_path
 
-mysql -h mysql.anantya.space -uroot -p$MYSQL_PASSWORD < /app/db/master-data.sql
+    mysql -h mysql.anantya.space -uroot -p$MYSQL_PASSWORD < /app/db/app-user.sql &>> $file_path
 
-validate $? "Loading data into mysql"
+    mysql -h mysql.anantya.space -uroot -p$MYSQL_PASSWORD < /app/db/master-data.sql  &>> $file_path
+    validate $? "Loading data into mysql"
+    
+else
+    echo "Data is loaded to mysql database"
+fi        
 
-systemctl restart shipping
+
+systemctl restart shipping  &>> $file_path
 validate $? "restarting shipping"
+
+END_TIME=$(date +%s)
+
+TOTAL_TIME=$(($END_TIME-$START_TIME))
+
+echo -e "Time taken to run this script is : $G $TOTAL_TIME $N seconds" | tee -a $file_path
 
 
 
