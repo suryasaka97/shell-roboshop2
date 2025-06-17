@@ -61,7 +61,7 @@ validate $? "/app folder installed"
 curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip &>> $file_path
 validate $? "shipping folder downloading"
 
-unzip /tmp/shipping.zip &>> $file_path
+unzip /tmp/shipping.zip 
 validate $? "unzipping shipping folder"
 
 mvn clean package  &>> $file_path
