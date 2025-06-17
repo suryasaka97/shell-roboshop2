@@ -49,12 +49,12 @@ systemctl enable mysqld &>> $file_path
 systemctl start mysqld  &>> $file_path
 validate $? "starting mysql"
 
-read -sp "$Y please provide roboshop password$N : " MYSQL_PASSWORD
+read -sp "please provide roboshop password : " MYSQL_PASSWORD
 
 mysql_secure_installation --set-root-pass $MYSQL_PASSWORD 
 validate $? "setting root password"
 
-END_TIME=$(DATE +%S) 
+END_TIME=$(date +%S) 
 
 TOTAL_TIME=$(($END_TIME-$START_TIME)) 
 
