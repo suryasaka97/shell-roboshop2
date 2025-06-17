@@ -64,7 +64,7 @@ validate $? "shipping folder downloading"
 unzip /tmp/shipping.zip &>> $file_path
 validate $? "unzipping shipping folder"
 
-mvn clean package 
+mvn clean package  &>> $file_path
 validate $? "packaging the shipping application"
 
 
