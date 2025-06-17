@@ -86,10 +86,10 @@ validate $? "start shipping"
 dnf install mysql -y &>> $file_path
 validate $? "mysql installation"
 
-read -ps "please provide mysql root password : s" MYSQL_PASSWORD
+read -ps "please provide mysql root password : " MYSQL_PASSWORD
 
 
-mysql -h mysql.daws84s.site -u root -p$MYSQL_PASSWORD -e 'use cities' &>>$LOG_FILE
+mysql -h mysql.anantya.space -u root -p$MYSQL_PASSWORD -e 'use cities' &>>$LOG_FILE
 
 if [ $? -ne 0]
 then
