@@ -55,7 +55,7 @@ else
     echo "roboshop user is already $G"exists""
 fi
 
-mkdir /app 
+mkdir -p /app 
 validate $? "/app folder installed"
 
 curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip &>> $file_path
