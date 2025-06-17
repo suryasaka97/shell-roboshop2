@@ -17,7 +17,7 @@ script_path=$PWD
 
 mkdir -p $LOG_FOLDER
 
-echo "you are running this script at: $(date)" | tee -a $script_path
+echo "you are running this script at: $(date)" | tee -a $file_path
 
 if [ $user -ne 0 ]
 then
