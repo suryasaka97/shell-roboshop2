@@ -49,7 +49,7 @@ systemctl enable mysqld &>> $file_path
 systemctl start mysqld  &>> $file_path
 validate $? "starting mysql"
 
-read -sp "please provide roboshop password" MYSSQL_PASSWORD &>>$file_path
+read -sp "please provide roboshop password" MYSQL_PASSWORD &>>$file_path
 
 mysql_secure_installation --set-root-pass $MYSQL_ROOT_PASSWORD  &>>$file_path
 validate $? "setting root password"
