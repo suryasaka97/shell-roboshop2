@@ -51,7 +51,7 @@ validate $? "starting mysql"
 
 read -sp "please provide roboshop password" MYSQL_PASSWORD &>>$file_path
 
-mysql_secure_installation --set-root-pass $MYSQL_ROOT_PASSWORD  &>>$file_path
+mysql_secure_installation --set-root-pass $MYSQL_ROOT_PASSWORD 
 validate $? "setting root password"
 
 END_TIME=$(DATE +%S) 
