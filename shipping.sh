@@ -42,17 +42,17 @@ fi
 
 
 
-dnf install maven -y
+dnf install maven -y &>> $file_path
 validate "Maven installation"
 
 id roboshop
 
 if [ $? -ne 0 ]
 then
-    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop  &>> $file_path
     validate $? "adding roboshop user"
 else  
-    echo "roboshop user is already $G"exists""
+    echo -e "roboshop user is already $G"exists"$N"
 fi
 
 mkdir -p /app 
