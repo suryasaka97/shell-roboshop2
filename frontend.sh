@@ -19,7 +19,7 @@ mkdir -p $LOG_FOLDER
 
 echo "you are running this script at: $(date)" | tee -a $file_path
 
-if [ $user -ne 0 ]
+if [ $user_id -ne 0 ]
 then
     echo -e "$R Not a root user....$Y please run the script with root user'$N'"  | tee -a $file_path
     exit 1
