@@ -15,7 +15,7 @@ file_name=$(echo "$0" | cut -d "." -f1)
 file_path="$LOG_FOLDER/$file_name.log"
 script_path=$PWD
 
-mkdir -p /var/log/roboshop-logs
+mkdir -p $LOG_FOLDER
 
 echo "you are running this script at: $(date)" | tee -a $script_path
 
