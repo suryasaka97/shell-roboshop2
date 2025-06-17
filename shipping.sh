@@ -43,7 +43,7 @@ fi
 
 
 dnf install maven -y &>> $file_path
-validate "Maven installation"
+validate $? "Maven installation"
 
 id roboshop
 
@@ -69,7 +69,7 @@ validate $? "packaging the shipping application"
 
 
 mv target/shipping-1.0.jar shipping.jar 
-validate "moving to shipping.jar"
+validate $? "moving to shipping.jar"
 
 cp $script_path/shipping.sh /etc/systemd/system/shipping.service
 validate $? "copying shipping service"
