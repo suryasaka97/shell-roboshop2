@@ -91,7 +91,7 @@ validate $? "start shipping"
 dnf install mysql -y &>> $file_path
 validate $? "mysql installation"
 
-read -sp "please provide mysql root password : " MYSQL_PASSWORD
+read -s "please provide mysql root password : " MYSQL_PASSWORD
 
 
 mysql -h mysql.anantya.space -u root -p$MYSQL_PASSWORD -e 'use cities' &>>$file_path
