@@ -61,7 +61,7 @@ validate $? "shipping folder downloading"
 mkdir -p /app 
 validate $? "/app folder installed"
 
-rm -rf /app/*
+rm -rf /app/* &>> $file_path
 validate $? "removing inside /app files"
 
 cd /app
@@ -91,7 +91,7 @@ validate $? "start shipping"
 dnf install mysql -y &>> $file_path
 validate $? "mysql installation"
 
-read -ps "please provide mysql root password : " MYSQL_PASSWORD
+read -sp "please provide mysql root password : " MYSQL_PASSWORD
 
 
 mysql -h mysql.anantya.space -u root -p$MYSQL_PASSWORD -e 'use cities' &>>$LOG_FILE
@@ -106,7 +106,7 @@ then
     validate $? "Loading data into mysql"
     
 else
-    echo "Data is loaded to mysql database"
+    echo "Data is already loaded to mysql database"
 fi        
 
 
