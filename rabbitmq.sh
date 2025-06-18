@@ -39,30 +39,35 @@ validate(){
 fi
 }
 
-dnf module disable redis -y &>>$file_path
-validate $? "Disable default redis module" | tee -a $file_path
 
-dnf module enable redis:7 -y &>>$file_path
-validate $? "Enable redis 7"  | tee -a $file_path
+cp rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo &>> $file_path
+validate $? "copying rabbitmq to yum.repos.d"
 
-dnf install redis -y &>>$file_path
-validate $? "Installing redis" | tee -a $file_path
+dnf install rabbitmq-server -y &>> $file_path
+validate $? "Installing rabbitmq server"
+
+systemctl enable rabbitmq-server &>> $file_path
+validate $? "Enabling rabbitmq"
+
+systemctl start rabbitmq-server &>> $file_path
+validate $? "starting rabbitmq"
+
+echo "Please enter rabbitmq password to setup"
+read -s RABBITMQ_PASSWD
 
 
-sed -i -e 's/127.0.0.1/0.0.0.0/g' -e '/protected-mode/ c protected-mode no' /etc/redis/redis.conf &>>$file_path
-validate $? "Using sed changes ip and protected mode"  | tee -a $file_path
+rabbitmqctl add_user roboshop $RABBITMQ_PASSWD  &>> $file_path
+validate $? "adding roboshop user"
+
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>> $file_path
+validate $? "settingup permissions"
 
 
 
-systemctl enable redis &>>$file_path
-validate $? "Enable redis" | tee -a $file_path
 
-systemctl start redis &>>$file_path
-validate $? "Disable redis" | tee -a $file_path
+
 
 End_time=$(date +%s)
 TOTAL_TIME=$(($End_time-$start_time))
 
 echo "Total time taken to run this script : $TOTAL_TIME seconds" | tee -a $file_path
-
-

@@ -7,7 +7,7 @@ DOMAIN_NAME="anantya.space"
 Type="t2.micro"
 
 ##To create multiple instances at one go
-Instance=("catalogue" "users" "frontend" "mysql" "mongodb" "rabitnq" "redis" "dispatch" "payment" "shipping" "cart")
+Instance=("catalogue" "users" "frontend" "mysql" "mongodb" "rabitmq" "redis" "dispatch" "payment" "shipping" "cart")
 
 
 #for instance in ${Instance[@]}
