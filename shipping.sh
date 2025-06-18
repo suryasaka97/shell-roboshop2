@@ -55,11 +55,16 @@ else
     echo -e "roboshop user is already $G"exists"$N"
 fi
 
+curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip &>> $file_path
+validate $? "shipping folder downloading"
+
 mkdir -p /app 
 validate $? "/app folder installed"
 
-curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip &>> $file_path
-validate $? "shipping folder downloading"
+rm -rf /app/*
+validate $? "removing inside /app files"
+
+cd /app
 
 unzip /tmp/shipping.zip 
 validate $? "unzipping shipping folder"
@@ -71,7 +76,7 @@ validate $? "packaging the shipping application"
 mv target/shipping-1.0.jar shipping.jar 
 validate $? "moving to shipping.jar"
 
-cp $script_path/shipping.sh /etc/systemd/system/shipping.service
+cp $script_path/shipping.service /etc/systemd/system/shipping.service
 validate $? "copying shipping service"
 
 systemctl daemon-reload &>> $file_path
