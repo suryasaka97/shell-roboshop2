@@ -99,9 +99,7 @@ mysql -h mysql.anantya.space -u root -p$MYSQL_PASSWORD -e 'use cities' &>>$file_
 if [ $? -ne 0 ]
 then
     mysql -h mysql.anantya.space -uroot -p$MYSQL_PASSWORD < /app/db/schema.sql &>> $file_path
-
     mysql -h mysql.anantya.space -uroot -p$MYSQL_PASSWORD < /app/db/app-user.sql &>> $file_path
-
     mysql -h mysql.anantya.space -uroot -p$MYSQL_PASSWORD < /app/db/master-data.sql  &>> $file_path
     validate $? "Loading data into mysql"
 else
