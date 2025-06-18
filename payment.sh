@@ -85,7 +85,7 @@ validate $? "start payment"
 
 
 End_time=$(date +%s)
-TOTAL_TIME=$(($End_time-$start_time))
+TOTAL_TIME=$(($End_time-$START_TIME))
 
 echo -e "$G Time taken to this script $R$0: $Y$TOTAL_TIME seconds$N"
 
