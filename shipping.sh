@@ -66,7 +66,7 @@ validate $? "removing inside /app files"
 
 cd /app
 
-unzip /tmp/shipping.zip 
+unzip /tmp/shipping.zip &>> $file_path
 validate $? "unzipping shipping folder"
 
 mvn clean package  &>> $file_path
@@ -94,9 +94,8 @@ validate $? "mysql installation"
 read -sp "please provide mysql root password : " MYSQL_PASSWORD
 
 
-mysql -h mysql.anantya.space -u root -p$MYSQL_PASSWORD -e 'use cities' &>>$LOG_FILE
-
-if [ $? -ne 0]
+mysql -h mysql.anantya.space -u root -p$MYSQL_PASSWORD -e 'use cities' &>>$file_path
+if [ $? -ne 0 ]
 then
     mysql -h mysql.anantya.space -uroot -p$MYSQL_PASSWORD < /app/db/schema.sql &>> $file_path
 
@@ -104,7 +103,6 @@ then
 
     mysql -h mysql.anantya.space -uroot -p$MYSQL_PASSWORD < /app/db/master-data.sql  &>> $file_path
     validate $? "Loading data into mysql"
-    
 else
     echo "Data is already loaded to mysql database"
 fi        
