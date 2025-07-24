@@ -52,15 +52,21 @@ validate $? "Enabling rabbitmq"
 systemctl start rabbitmq-server &>> $file_path
 validate $? "starting rabbitmq"
 
-echo "Please enter rabbitmq password to setup"
-read -s RABBITMQ_PASSWD
+rabbitmqctl list_users | grep "^roboshop"
 
+if [ $? -ne 0 ]
+then
+    echo "Please enter rabbitmq password to setup"
+    read -s RABBITMQ_PASSWD
 
-rabbitmqctl add_user roboshop $RABBITMQ_PASSWD  &>> $file_path
-validate $? "adding roboshop user"
+    rabbitmqctl add_user roboshop $RABBITMQ_PASSWD  &>> $file_path
+    validate $? "adding roboshop user"
 
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>> $file_path
-validate $? "settingup permissions"
+    rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>> $file_path
+    validate $? "settingup permissions"
+else
+    "rabbitmq roboshop user already exists"
+fi        
 
 
 

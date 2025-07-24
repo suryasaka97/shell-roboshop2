@@ -89,7 +89,6 @@ validate $? "Reloading the service"
 systemctl enable user &>>$file_path
 
 systemctl start user &>>$file_path
-
 validate $? "starting user"
 
 End_time=$(date +%s)

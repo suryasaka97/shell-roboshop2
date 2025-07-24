@@ -41,7 +41,7 @@ fi
 }
 
 dnf install python3 gcc python3-devel -y &>>$file_path
-VALIDATE $? "Install Python3 packages"
+validate $? "Install Python3 packages"
 
 
 id roboshop &>>$file_path

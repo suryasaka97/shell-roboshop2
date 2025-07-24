@@ -19,18 +19,18 @@ do
   --security-group-ids $SG_ID \
   --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" \
   --query 'Instances[0].InstanceId' \
-  --output text)
+  --output json)
    
     if [ $instance != frontend ]
     then 
          ip=$(aws ec2 describe-instances --instance-ids $Instance_ID \
         --query "Reservations[0].Instances[0].PrivateIpAddress" \
-        --output text)
+        --output json)
         record="$instance.$DOMAIN_NAME"
     else
         ip=$(aws ec2 describe-instances --instance-ids $Instance_ID \
         --query "Reservations[0].Instances[0].PublicIpAddress" \
-        --output text)
+        --output json)
         record="$DOMAIN_NAME"
     fi
 

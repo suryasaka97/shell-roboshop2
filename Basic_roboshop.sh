@@ -17,9 +17,9 @@ aws ec2 run-instances \
 
 ##Command used to see the particular Instance Details##
 aws ec2 describe-instances \
-  --instance-ids i-0cd1d9c1133444f49
+  --instance-ids i-0cd1d9c1133444f49 
 
-##Command to get Public IP address using query
+##Command to get Public IP address using query from a instance
 aws ec2 describe-instances --instance-ids i-0cd1d9c1133444f49 \
   --query "Reservations[0].Instances[0].PublicIpAddress" \
   --output text
@@ -44,6 +44,7 @@ INSTANCE_IP=$(aws ec2 describe-instances \
 echo "Public IP Address: $INSTANCE_IP"
 
 ## Command to create or update DNS Records ##
+#create, delete
 
 aws route53 change-resource-record-sets \
   --hosted-zone-id $ZONE_ID \
