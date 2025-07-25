@@ -2,7 +2,7 @@
 
 AMI_ID="ami-09c813fb71547fc4f"
 SG_ID="sg-01659ab712a1c0efe"
-ZONE_ID="Z0223797DGGO4EOPINIX"
+ZONE_ID="Z02956822SPH248LVQNJV"
 DOMAIN_NAME="anantya.space"
 Type="t2.micro"
 
@@ -19,18 +19,18 @@ do
   --security-group-ids $SG_ID \
   --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" \
   --query 'Instances[0].InstanceId' \
-  --output json)
+  --output text)
    
     if [ $instance != frontend ]
     then 
          ip=$(aws ec2 describe-instances --instance-ids $Instance_ID \
         --query "Reservations[0].Instances[0].PrivateIpAddress" \
-        --output json)
+        --output text)
         record="$instance.$DOMAIN_NAME"
     else
         ip=$(aws ec2 describe-instances --instance-ids $Instance_ID \
         --query "Reservations[0].Instances[0].PublicIpAddress" \
-        --output json)
+        --output text)
         record="$DOMAIN_NAME"
     fi
 
