@@ -94,7 +94,7 @@ validate $? "copying mongo repo"
 dnf install mongodb-mongosh -y  &>>$file_path
 validate $? "installing mongodb client"
 
-STATUS=$(mongosh --host mongodb.anantya.space --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
+STATUS=$(mongosh --host mongodb.anantya.space --eval 'db.getMongo().getDBNames().indexOf("catalogue")') #check products are loaded or not
 
 if [ $STATUS -lt 0 ]
 then
